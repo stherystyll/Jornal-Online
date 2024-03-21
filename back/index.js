@@ -1,11 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const cors = require('cors');
 const usuarioModel = require('./src/config/module/usuario/usuario.model.js');
 const noticiaModel = require('./src/config/module/noticia/noticia.model.js');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post('/login', async (req, res) => {
     if (!req.body.email) {

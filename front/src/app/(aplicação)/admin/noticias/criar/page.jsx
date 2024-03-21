@@ -1,10 +1,10 @@
 import CadastroNoticiaForm from "@/components/CadastroNoticiaForm"
 
 const NoticiaCriarPage = () => {
-    return(
+    return (
         <div>
             <h1>NoticiaCriarPage</h1>
-            <CadastroNoticiaForm/>
+            <CadastroNoticiaForm />
         </div>
     )
 }
