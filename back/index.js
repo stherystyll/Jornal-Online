@@ -2,6 +2,7 @@ const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const usuarioModel = require('./src/config/module/usuario/usuario.model.js');
+const noticiaModel = require('./src/config/module/noticia/noticia.model.js');
 
 const app = express();
 app.use(express.json());
@@ -14,19 +15,19 @@ app.post('/login', async (req, res) => {
         return res.status(400).json({ message: 'O campo senha é obrigatório' });
     }
 
-    const usuarioExistente = await usuarioModel.findOne({email: req.body.email});
+    const usuarioExistente = await usuarioModel.findOne({ email: req.body.email });
 
     if (!usuarioExistente) {
-        return res.status(400).json({message: 'Usuário não está cadastrado' });
+        return res.status(400).json({ message: 'Usuário não está cadastrado' });
     }
-    
+
     const senhaVerificada = bcrypt.compareSync(
-        req.body.senha, 
+        req.body.senha,
         usuarioExistente.senha
     );
 
-    if (!senhaVerificada){
-        return res.status(400).json({message: 'E-mail ou senha incorretos' });
+    if (!senhaVerificada) {
+        return res.status(400).json({ message: 'E-mail ou senha incorretos' });
     }
 
     const token = jwt.sign({ _id: usuarioExistente._id }, 'dnc');
@@ -34,7 +35,7 @@ app.post('/login', async (req, res) => {
 
     return res.status(200).json({
         message: 'Login realizado com sucesso',
-        token, 
+        token,
     });
 });
 
@@ -51,10 +52,10 @@ app.post('/usuarios', async (req, res) => {
         return res.status(400).json({ message: 'O campo senha é obrigatório' });
     }
 
-    const usuarioExistente = await usuarioModel.find({email: req.body.email});
-    
+    const usuarioExistente = await usuarioModel.find({ email: req.body.email });
+
     if (usuarioExistente.length) {
-        return res.status(400).json({message: 'Usuário já existe' });
+        return res.status(400).json({ message: 'Usuário já existe' });
     }
 
     const senhaCriptografada = bcrypt.hashSync(req.body.senha, 10);
@@ -64,15 +65,40 @@ app.post('/usuarios', async (req, res) => {
         email: req.body.email,
         senha: senhaCriptografada,
     });
-return res.status(201). json(usuario);
+    return res.status(201).json(usuario);
 });
 
-app.get('/noticias', (req, res) => {
-    return res.status(200).json([]);
+app.get('/noticias', async (req, res) => {
+    let filtroCategoria = {};
+    if (req.query.categoria) {
+        filtroCategoria = { categoria: req.query.categoria };
+    }
+    const noticias = await noticiaModel.find(filtroCategoria);
+    return res.status(200).json(noticias);
 });
 
-app.post('/noticias', (req, res) => {
-    return res.status(201).json([]);
+app.post('/noticias', async (req, res) => {
+    if (!req.body.titulo) {
+        return res.status(400).json({ message: 'O campo título é obrigatório' });
+    }
+    if (!req.body.img) {
+        return res.status(400).json({ message: 'O campo img é obrigatório' });
+    }
+    if (!req.body.texto) {
+        return res.status(400).json({ message: 'O campo texto é obrigatório' });
+    }
+    if (!req.body.categoria) {
+        return res.status(400).json({ message: 'O campo categoria é obrigatório' });
+    }
+
+    const noticia = await noticiaModel.create({
+        titulo: req.body.titulo,
+        img: req.body.img,
+        texto: req.body.texto,
+        categoria: req.body.categoria,
+
+    });
+    return res.status(201).json(noticia);
 });
 
 app.listen(8080, () => {

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+const mongoose = require('../../../config/mongo.js');
 const { Schema } = mongoose;
 
 const noticiaSchema = new Schema(
@@ -6,12 +6,13 @@ const noticiaSchema = new Schema(
         titulo: String, // String is shorthand for {type: String}
         img: String,
         texto: String,
+        categoria: String,
     },
-    { 
-        timestamps: true, 
+    {
+        timestamps: true,
     }
 );
 
 const NoticiaModel = mongoose.model('noticias', noticiaSchema);
 
-export default NoticiaModel;
+module.exports = NoticiaModel;

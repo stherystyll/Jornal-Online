@@ -6,9 +6,10 @@ const usuarioSchema = new Schema(
         nome: String, // String is shorthand for {type: String}
         email: String,
         senha: String,
+        categoria: String,
     },
-    { 
-        timestamps: true, 
+    {
+        timestamps: true,
     }
 );
 
