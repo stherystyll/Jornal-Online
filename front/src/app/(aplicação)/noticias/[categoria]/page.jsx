@@ -23,10 +23,10 @@ const noticias = [
 
 const NoticiasPage = ({ params }) => {
     return (
-    <div>
-        <h1>{params.categoria}</h1>
-        <GridNoticias noticias={noticias} />
-    </div>
+        <div>
+            <h1>{params.categoria}</h1>
+            <GridNoticias noticias={noticias} />
+        </div>
     )
 }
 

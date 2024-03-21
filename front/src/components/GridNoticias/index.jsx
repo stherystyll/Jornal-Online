@@ -2,7 +2,7 @@
 import CardNoticia from "../CardNoticia"
 
 const GridNoticias = ({ noticias }) => {
-    return(
+    return (
         <div>
             {noticias.map(noticia => (
                 <CardNoticia key={noticia.id} noticia={noticia} />

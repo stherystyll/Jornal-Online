@@ -1,11 +1,11 @@
 'use client'
 
 const CardNoticia = ({ noticia }) => {
-    return(
+    return (
         <div>
-            <h2>{ noticia.titulo }</h2>
+            <h2>{noticia.titulo}</h2>
             <img src={noticia.img} alt={noticia.titulo} />
-            <p>{ noticia.texto }</p>
+            <p>{noticia.texto}</p>
         </div>
     )
 }
