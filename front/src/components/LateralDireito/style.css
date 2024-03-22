@@ -1,0 +1,11 @@
+.ultimasNoticias {
+    padding-left: 30px;
+}
+
+.ultimasNoticias .titulo {
+    margin-bottom: 40px;
+    border-bottom: 1px solid;
+    padding-bottom: 10px;
+    margin-top: 50px;
+
+}

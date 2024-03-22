@@ -22,15 +22,15 @@ const HomePage = () => {
     }, []);
     return (
         <div className="gridHome">
-            <LateralEsquerdo />
+            <LateralEsquerdo noticia={noticias[0]} />
             <div>
                 {noticias.map(noticia =>
                     <Noticia key={noticias.id} noticia={noticia} />)
                 }
             </div>
-            <LateralDireito />
+            <LateralDireito noticia={noticias[0]} />
         </div>
     );
 }
 
-export default HomePage
+export default HomePage;
