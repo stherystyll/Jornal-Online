@@ -2,6 +2,9 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Noticia from "@/components/Noticia";
+import LateralEsquerdo from "@/components/LateralEsquerdo";
+import LateralDireito from "@/components/LateralDireito";
+import './style.css';
 
 const HomePage = () => {
     const [noticias, setNoticias] = useState([]);
@@ -18,11 +21,14 @@ const HomePage = () => {
         getNoticias();
     }, []);
     return (
-        <div>
-            <h1>Home</h1>
-            {noticias.map(noticia =>
-                <Noticia key={noticias.id} noticia={noticia} />)
-            }
+        <div className="gridHome">
+            <LateralEsquerdo />
+            <div>
+                {noticias.map(noticia =>
+                    <Noticia key={noticias.id} noticia={noticia} />)
+                }
+            </div>
+            <LateralDireito />
         </div>
     );
 }
