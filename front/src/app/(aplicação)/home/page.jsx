@@ -17,18 +17,31 @@ const HomePage = () => {
             alert(error.response.data.message);
         }
     }
+
+    const getNoticiaMaisPopular = () => {
+        if (noticias) {
+            return noticias.find(noticia => noticia.isPopular)
+        }
+    }
+
+    const getUltimasNoticias = () => {
+        if (noticias) {
+            return noticias.filter(noticia => noticia.isUltimas)
+        }
+    }
+
     useEffect(() => {
         getNoticias();
     }, []);
     return (
         <div className="gridHome">
-            <LateralEsquerdo noticia={noticias[0]} />
+            { getNoticiaMaisPopular() && <LateralEsquerdo noticia={getNoticiaMaisPopular()} />}
             <div>
                 {noticias.map(noticia =>
-                    <Noticia key={noticias.id} noticia={noticia} />)
+                    <Noticia key={noticia.id} noticia={noticia} />)
                 }
             </div>
-            <LateralDireito noticia={noticias[0]} />
+            {getUltimasNoticias() && <LateralDireito noticias={getUltimasNoticias()} />}
         </div>
     );
 }
